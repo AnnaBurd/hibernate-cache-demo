@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+    <session-factory>
+    
+    	<!-- Database connection settings -->
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost/mydatabase</property>
+        <property name="hibernate.connection.username">hibernate_user</property>
+        <property name="hibernate.connection.password">123456</property>
+        
+        <property name="hibernate.connection.characterEncoding">utf8</property>
+        <property name="hibernate.current_session_context_class">thread</property>
+        
+        <!-- Recreate database schema on Hibernate launch -->
+        <!-- <property name="hibernate.hbm2ddl.auto">create-drop</property> -->
+        
+        <!-- Print Hibernate queries to terminal -->
+        <property name="hibernate.show_sql">true</property>
+        <!-- <property name="hibernate.format_sql">true</property> -->
+        
+        <!--  Second level cache settings -->
+        <property name="hibernate.javax.cache.provider">
+            org.ehcache.jsr107.EhcacheCachingProvider
+        </property>
+         <property name="hibernate.cache.region.factory_class">
+         	org.redisson.hibernate.RedissonRegionFactory</property>
+         <property name="hibernate.cache.redisson.config">redisson.yaml</property>       
+        <property name="hibernate.cache.use_second_level_cache">true</property>
+        <property name="hibernate.cache.use_query_cache">true</property>
+        
+<property name="hibernate.cache.redisson.entity.eviction.max_entries">100</property>
+<property name="hibernate.cache.redisson.entity.expiration.time_to_live">100000</property>
+<property name="hibernate.cache.redisson.entity.localcache.eviction_policy">LRU</property>
+
+
+        
+        <!-- Generate statistics (includes second level cache hits/misses) -->
+        <property name="hibernate.generate_statistics">true</property>
+                
+        <!--  List of XML mapping files and annotated classes -->
+        <mapping class="org.myexample.hibcache.Pet"/>
+        
+    </session-factory>
+</hibernate-configuration>
