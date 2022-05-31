@@ -1,14 +1,14 @@
 This article explains the basics of caching with Hibernate for default first-level cache and optional second-level cache, provides an extensive overview of general caching concepts, and includes example configurations of second-level cache for the Hibernate 6 with Ehcache 3 or Redis caching providers.
 
 Table of contents:
-1. [What is Caching?](#whatiscaching)
-2. [Cache layers in Hibernate](#cachelayersinhibernate)
-3. [First-level cache](#firstlevelcache)
-4. [Second-level cache](#secondlevelcache)
-    * [Second-level cache with Ehcache caching provider](#secondlevelcachewithehcachecachingprovider)
-    * [Second-level cache with Redis](#secondlevelcachewithredis)
-        * [Hibernate configuration with Redisson](#hibernateconfigurationwithredisson)
-        * [Redis as a primary database with Redisson](#redisasaprimarydatabasewithredisson)
+1. [What is Caching?](#what-is-caching)
+2. [Cache layers in Hibernate](#cache-layers-in-hibernate)
+3. [First-level cache](#first-level-cache)
+4. [Second-level cache](#second-level-cache)
+    * [Second-level cache with Ehcache caching provider](#second-level-cache-with-ehcache-caching-provider)
+    * [Second-level cache with Redis](#second-level-cache-with-redis)
+        * [Hibernate configuration with Redisson](#hibernate-configuration-with-redisson)
+        * [Redis as a primary database with Redisson](#redis-as-a-primary-database-with-redisson)
 5. [Conclusion](#conclusion)
 
 ## What is Caching?
@@ -17,16 +17,17 @@ Cache is a high-speed data storage that stores a subset of popular data in a lay
 
 For example, imagine a web store application that lives in the fast random-access memory of the server. The data about items in the store, prices, orders, etc., is stored in the database on the hard drive disk. When the user requests data, the application has to run requests to the database and fetch results before serving to the user, which slows down the whole process as secondary memory is times slower compared to the RAM.
 
-![Application-database relation](images_for_article/1-2.svg?raw=true "Application-database relation")
-<img src="/content/images/2022/05/1-2.svg" title = "Application-database relation" width = "230" height="200">
-<p></p>
+<p align="center">
+<img src="images_for_article/1-2.svg?raw=true" width="600">
+</p>
 
 Another observation is that not all data in the database is equally popular: as the 20-80 rule says, there are usually 20% top items that take 80% of requests, and the last 20% of requests are split over the not as popular 80% of the items.
 
 Thus the idea is to store copies of the most popular items in the fast memory for fast serves, which improves response times and reduces the number of queries to the database.
 
-<img src="/content/images/2022/05/2.svg" title = "Application-database relation with cache between" width = "280" height="200">
-<p></p>
+<p align="center">
+<img src="images_for_article/2.svg?raw=true" width="700">
+</p>
 
 > The simplest way to implement cache in Java applications is with the hashmap data structure like `java.util.HashMap<Key, Value>`, where Key is the primary key from the database and Value is the object from the database. 
 
@@ -34,8 +35,9 @@ Thus the idea is to store copies of the most popular items in the fast memory fo
 
 As an intermediary between application and database that is responsible for managing database queries, Hibernate ORM includes flexible support for caching: there are build-in caching tools as well as API for third-parties caching products.
 
-<img src="/content/images/2022/05/3.svg" title = "Cache layers in Hibernate" width = "350" height="280">
-<p></p>
+<p align="center">
+<img src="images_for_article/3.svg?raw=true" width="500">
+</p>
 
 **First level cache** - is automatically supported by the hibernate cache also called **persistence context** that is associated with the session object and thus can not be accessed after the session is closed.
 
