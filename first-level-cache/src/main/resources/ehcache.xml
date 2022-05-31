@@ -1,0 +1,19 @@
+<config
+  xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+  xmlns='http://www.ehcache.org/v3'
+  xsi:schemaLocation="
+        http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core-3.0.xsd">
+  <!-- Cache settings for each entity class -->
+  <cache alias="pet">
+  	<!-- Fully qualified class name of key for the entity stored in cache Cache<K, V> -->
+    <key-type>java.lang.Integer</key-type>
+    <!-- Full class name of entity held in cache -->
+    <value-type>org.myexample.hibcache.Pet</value-type>
+    <!-- Optionally - remove old items from cache -->
+    <expiry>
+      <ttl unit="minutes">2</ttl>
+    </expiry>
+    <!-- Optionally - limit maximum number of entities in cache -->
+    <heap unit="entries">10</heap>
+  </cache>
+</config>
