@@ -17,6 +17,7 @@ Cache is a high-speed data storage that stores a subset of popular data in a lay
 
 For example, imagine a web store application that lives in the fast random-access memory of the server. The data about items in the store, prices, orders, etc., is stored in the database on the hard drive disk. When the user requests data, the application has to run requests to the database and fetch results before serving to the user, which slows down the whole process as secondary memory is times slower compared to the RAM.
 
+![Application-database relation](images_for_article/1-2.swg?raw=true "Title")
 <img src="/content/images/2022/05/1-2.svg" title = "Application-database relation" width = "230" height="200">
 <p></p>
 
